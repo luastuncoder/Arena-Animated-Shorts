@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 
 // Serve only the player and its own media, never the repository or its secrets.
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const media = path.join(root, "deliverables/animated-test-10s.mp4");
+const media = path.join(root, "deliverables/animated-test-v2.mp4");
 const routes = {
   "/": { path: path.join(root, "preview/index.html"), type: "text/html; charset=utf-8" },
   "/poster.jpg": { path: path.join(root, "preview/poster.jpg"), type: "image/jpeg" },
@@ -38,7 +38,7 @@ const server = createServer((req, res) => {
     "Accept-Ranges": "bytes",
     "Cache-Control": "no-cache",
   };
-  if (route.download) headers["Content-Disposition"] = 'attachment; filename="animated-test-10s.mp4"';
+  if (route.download) headers["Content-Disposition"] = 'attachment; filename="animated-test-v2.mp4"';
 
   let start = 0;
   let end = size - 1;

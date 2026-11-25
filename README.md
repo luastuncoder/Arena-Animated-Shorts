@@ -1,11 +1,11 @@
 # Arena Animated Shorts
 
-A production workspace for planning and creating original animated story shorts, based on [mromidev/claude-animated-shorts](https://github.com/mromidev/claude-animated-shorts). An original 10-second test is included; the upstream bridge example remains a technical reference.
+A production workspace for planning and creating original animated story shorts, based on [mromidev/claude-animated-shorts](https://github.com/mromidev/claude-animated-shorts). Two original 10-second tests are included; the upstream bridge example remains a technical reference.
 
 ## What's here
 
 - `.claude/skills/cartoon-3d-short/SKILL.md` — the upstream workflow and visual recipe, at revision [`e3b817b`](https://github.com/mromidev/claude-animated-shorts/tree/e3b817b6afc6cd413466d43f11ba31209e034bbf); its MIT license and code templates are alongside it. One small TypeScript compatibility adjustment preserves the original effect order.
-- `src/` — the Remotion entry point, the original `TenSecondTest` composition, and the upstream `BridgeShort` technical sample.
+- `src/` — the Remotion entry point, the revised `PlaneTest` look test, the earlier `TenSecondTest` composition, and the upstream `BridgeShort` technical sample.
 - `public/bridge/kenney/` — the 26 small CC0 Kenney models and the texture used by the sample; attribution and license texts are included there.
 - `scripts/` — portable still/video rendering, FFmpeg/FFprobe, Python, and draft word-timing helpers. `requirements.txt` and `package-lock.json` make reinstalling the tools repeatable.
 - The upstream style-study frames, contact sheets and reports are deliberately **not copied here**. Consult them separately in temporary/private storage; do not publish or include them in deliverables.
@@ -26,18 +26,24 @@ npm test
 
 The npm dependencies supply FFmpeg and FFprobe for the helpers. On Linux x64 the render scripts also supply headless Chromium and software WebGL, including the libraries needed in a minimal sandbox. On other systems Remotion uses its usual browser setup, or set `REMOTION_BROWSER_EXECUTABLE` to an existing Chrome/Chromium executable. Rendering runs locally, not on Vercel. A software-only machine can be substantially slower and more memory-constrained than a GPU-equipped workstation.
 
-Dependencies, temporary bundles and most generated outputs are ignored by Git and may need to be reinstalled or regenerated after an environment reset. The small test video below is an explicit exception. No API keys are required for the local example.
+Dependencies, temporary bundles and most generated outputs are ignored by Git and may need to be reinstalled or regenerated after an environment reset. The explicitly requested test videos are exceptions. No API keys are required for the local examples.
 
-## 10-second animation test
+## Revised 10-second look test
 
-`TenSecondTest` is an original, caption-free animation with a 2D explorer, a star, a small 3D world, and a synthesized music/SFX bed. It is 300 frames at 30 fps; the test export is 1080 × 1920 with 48 kHz stereo audio. The small, explicitly requested test video is retained at `deliverables/animated-test-10s.mp4` so it survives workspace resets. Run `npm run preview:video` to watch it in the browser or use the download button. To regenerate it from source:
+`PlaneTest` is a new, wordless look test: a paper plane crosses a town and lands on a character. It has three original shots, the skill's 2D bean-head drawing and card shader, painted 3D town assets, two-tone lighting, ink, depth of field, bloom, tone mapping and grade, plus a newly synthesized march and sound effects. Its simplified story is fictional; **it is a visual test, not the skill's full researched and narrated story pipeline**.
+
+The retained file is `deliverables/animated-test-v2.mp4` (300 frames at 30 fps, 810 × 1440 test render, 48 kHz stereo AAC). `deliverables/animated-test-v2-preview.gif` is a small silent preview. Run `npm run preview:video` for a local browser player; this is a temporary local server, not a persistent public URL.
+
+The scene copies reusable code from the MIT-licensed skill template into `src/videos/plane-test/`, with a new town layout, character, flight path, camera plan and sound cues. For practical software rendering the draft uses fewer depth-of-field samples and a cached static town shadow. The skill's original sampling settings remain in `.claude/skills/cartoon-3d-short/templates/bridge/` for higher-quality production renders. To regenerate this draft:
 
 ```sh
-npm run py -- src/videos/test-short/soundtrack.py work/test-short/soundtrack.wav
-npm run render -- --id TenSecondTest --output work/test-short/picture.mp4 --scale 1 --dpr 1 --concurrency 1
-mkdir -p deliverables
-npm run ffmpeg -- -y -i work/test-short/picture.mp4 -i work/test-short/soundtrack.wav -map 0:v:0 -map 1:a:0 -c:v copy -c:a aac -b:a 192k -ar 48000 -ac 2 -t 10 -movflags +faststart deliverables/animated-test-10s.mp4
+npm run py -- src/videos/plane-test/soundtrack.py work/plane-test/soundtrack.wav
+npm run render -- --id PlaneTest --output work/plane-test/picture.mp4 --scale 0.75 --dpr 0.75 --concurrency 1
+npm run ffmpeg -- -y -i work/plane-test/picture.mp4 -i work/plane-test/soundtrack.wav -map 0:v:0 -map 1:a:0 -c:v copy -c:a aac -b:a 192k -ar 48000 -ac 2 -t 10 -movflags +faststart deliverables/animated-test-v2.mp4
+npm run py -- .claude/skills/cartoon-3d-short/templates/scripts/short_qa.py deliverables/animated-test-v2.mp4 work/plane-test/qa src/videos/plane-test/shots.json
 ```
+
+The previous, less faithful explorer-and-star test remains available as `deliverables/animated-test-10s.mp4` and the `TenSecondTest` composition; it is no longer the player default.
 
 ## Common commands
 
