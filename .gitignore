@@ -1,0 +1,27 @@
+node_modules/
+.venv/
+.vercel/
+.env
+.env.*
+!.env.example
+out/
+work/
+remotion-tmp/
+private-references/
+.claude/skills/cartoon-3d-short/references/
+_cache/
+*.mp4
+# Keep the explicitly requested, small test deliverable across workspace resets.
+!deliverables/animated-test-10s.mp4
+*.mov
+*.webm
+*.wav
+*.mp3
+*.m4a
+*.aac
+*.flac
+*.ogg
+*.npy
+*.npz
+*.py[cod]
+__pycache__/

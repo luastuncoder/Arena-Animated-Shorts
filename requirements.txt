@@ -1,0 +1,8 @@
+numpy==2.2.6
+scipy==1.15.3
+Pillow==11.3.0
+pocketsphinx==5.0.4
+# PocketSphinx's currently resolved Python dependencies, pinned for repeatability.
+sounddevice==0.5.6
+cffi==2.1.1
+pycparser==3.12
