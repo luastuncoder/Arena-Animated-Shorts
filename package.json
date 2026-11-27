@@ -12,7 +12,10 @@
     "ffmpeg": "node scripts/media.mjs ffmpeg",
     "ffprobe": "node scripts/media.mjs ffprobe",
     "test": "node --test tests/*.test.mjs",
-    "preview:video": "node scripts/serve-video.mjs"
+    "preview:video": "node scripts/serve-video.mjs",
+    "player:dev": "npm --prefix web run dev",
+    "player:build": "npm --prefix web run build",
+    "player:media": "node web/scripts/prebuild.mjs"
   },
   "dependencies": {
     "@react-three/fiber": "9.1.2",

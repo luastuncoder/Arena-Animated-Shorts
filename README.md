@@ -45,6 +45,42 @@ npm run py -- .claude/skills/cartoon-3d-short/templates/scripts/short_qa.py deli
 
 The previous, less faithful explorer-and-star test remains available as `deliverables/animated-test-10s.mp4` and the `TenSecondTest` composition; it is no longer the player default.
 
+## Streaming player (`web/`)
+
+The shorts now play in a small web player instead of arriving as downloads. It is a
+Next.js app in `web/` — a static page plus static video files, so it can be hosted on
+Vercel's free tier and nothing is stored on the viewer's device unless they ask for a copy.
+
+```sh
+npm --prefix web install     # only needed once
+npm run player:dev           # http://localhost:3000
+npm run player:media         # copy deliverables into web/public/media
+npm run player:build         # production build
+```
+
+`web/lib/shorts.ts` is the library: one object per short (title, blurb, file, poster,
+duration). Adding a short means rendering it, adding the entry, and running `npm run player:media`. The player itself only preloads metadata (`preload="metadata"`), so the
+page stays light on a slow connection; playback streams in chunks via byte ranges.
+
+## The Kite Thief (new short)
+
+`KiteShort` is the third original short: 13 seconds, four shots. A red paper kite slips
+its string in a cobbled square, rides the wind over the rooftops, and dives back into a
+small kid's hands exactly as the town switches on its lamps. It reuses the skill's painted
+town kit, card shader, ink, depth of field, bloom, tone map and grade, with a new street
+layout, kite, two hand-drawn characters (`src/videos/kite-short/art.ts`) and a new
+whistled score with foley.
+
+- Render: `npm run py -- src/videos/kite-short/soundtrack.py work/kite/soundtrack.wav`,
+  then `npm run render -- --id KiteShort --output work/kite/picture.mp4 --scale 0.75 --dpr 0.75 --concurrency 1`,
+  then mux the WAV over the picture with the FFmpeg helper.
+- Deliverable: `deliverables/kite-thief.mp4` (13.0 s, 810 × 1440, 30 fps, 48 kHz stereo AAC,
+  −17.7 LUFS, −3.8 dB peak, no silence or black frames, 3.5 MB web encode).
+- Stills: `deliverables/kite-thief-poster.jpg` and `deliverables/kite-thief-dusk.jpg`.
+
+Like the earlier tests this is a wordless look test: no narration and no researched story
+pipeline, rendered at 810 × 1440 rather than the skill's 1440 × 2560 final size.
+
 ## Common commands
 
 ```sh

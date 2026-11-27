@@ -19,7 +19,7 @@ export type Outfit = {
   sash?: string; sword?: boolean; moustache?: string; skin?: string; head?: number; cap?: string; hair?: string; dress?: string;
   build?: Build;
 };
-type P2 = [number, number];
+export type P2 = [number, number];
 
 const rad = (d: number) => (d * Math.PI) / 180;
 const clamp = (x: number, a: number, b: number) => Math.max(a, Math.min(b, x));
