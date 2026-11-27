@@ -12,7 +12,7 @@ import { CHAR, TONE, twoTone, untone } from "../plane-test/shade";
 import { LIGHTS, LOOK } from "../plane-test/lights";
 import { NOINK } from "../plane-test/ink";
 import { V as BV } from "../plane-test/build";
-import { camAt, dawnAt, duskAt, glide, goldenAt, FINAL_TICK, indoorAt, LANDING, nightAt, SPRING } from "./story";
+import { camAt, dawnAt, duskAt, glide, goldenAt, FINAL_TICK, indoorAt, LANDING, nightAt, SNAP, SPRING } from "./story";
 import { CLOCKMAKER, drawBrassBird, drawClockFace, drawMote, drawSparrow } from "./art";
 
 const KIT_NAMES = ["lantern", "stall-green", "stall-red", "cart", "stall-bench", "flower_redA", "flower_yellowA", "hedge", "plant_bush"];
@@ -727,8 +727,12 @@ export class ClockWorld {
       this.sparrow.mesh.rotation.set(0, -0.22, 0);
     }
 
-    // all the town clocks agree on the final tick, and the workshop clocks keep their own time
-    if (f >= FINAL_TICK) this.clockHands.forEach((h) => { h.rotation.z = -((FINAL_TICK * 0.12 + 12 * 60) % 60) * (Math.PI * 2) / 60; });
+    // at the snap the town's clocks all settle onto the same minute: a twelve-frame ease, not a jump
+    if (f >= SNAP) {
+      const k = glide((f - SNAP) / 12);
+      const settling = -((FINAL_TICK * 0.1 + 11 * 60 + 52) % 60) * (Math.PI * 2) / 60;
+      this.clockHands.forEach((h) => { h.rotation.z = h.rotation.z + (settling - h.rotation.z) * k; });
+    }
       return new THREE.Vector3(...c.focus);
   }
 }

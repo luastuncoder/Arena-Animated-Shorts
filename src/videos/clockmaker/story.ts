@@ -72,7 +72,7 @@ export function camAt(f: number): Cam {
       return aim(mixV(SUBJ.sill, [0.6, 1.14, -5.2] as V3, k), [0.12, 0.08, 1], lerp(2.3, 1.85, k), 37, lerp(0.006, -0.006, k));
     case 7:
       // the sparrow lands: a two-shot of both birds
-      return aim(SUBJ.twoBirds, [0.02, 0.1, 1], lerp(1.85, 1.6, k), 30, lerp(0.004, -0.003, k));
+      return aim(mixV([0.62, 1.1, -5.19] as V3, [0.63, 1.09, -5.19] as V3, k), [0.02, 0.12, 1], lerp(1.8, 1.66, k), 30, lerp(0.004, -0.003, k));
     default:
       return aim(mixV([0.1, 4.0, -3.4] as V3, [0.0, 5.8, -4.6] as V3, k), [0.2, 0.17, 1], lerp(9.2, 7.8, k), 50, lerp(-0.01, 0.008, k));
   }
@@ -94,3 +94,5 @@ export const indoorAt = (f: number) => (f >= SHOTS[1].a && f < SHOTS[7].a ? 1 : 
 export const LANDING = 1000;
 export const SPRING = 1046;
 export const FINAL_TICK = 1120;
+/** The town's clocks get one clean snap as they all agree; everything else keeps ticking under it. */
+export const SNAP = 1116;
