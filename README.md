@@ -62,7 +62,34 @@ npm run player:build         # production build
 duration). Adding a short means rendering it, adding the entry, and running `npm run player:media`. The player itself only preloads metadata (`preload="metadata"`), so the
 page stays light on a slow connection; playback streams in chunks via byte ranges.
 
-## The Kite Thief (new short)
+## The Clockmaker's Bird (new short)
+
+`ClockmakerBird` is the first **narrated** short: 41 seconds, eight shots, delivered at 810 × 1440 (composed for 1080 × 1920) at 30 fps.
+In a town where every clock keeps perfect time, an old clockmaker builds a brass songbird that
+ticks, hops and turns — and cannot sing. He sets it on the window sill and leaves the window
+open. At dawn a sparrow lands beside it, answers it, and the town keeps time to a new song.
+
+- Narration: eight synthesized lines (`work/bird/vo/01..08.mp3`) placed on the shot starts in
+  `src/videos/clockmaker/story.ts` (`VO_START`).
+- Score and foley: `src/videos/clockmaker/soundtrack.py` — a music-box waltz for the town, a
+  small unresolved figure for the bird, a tremolo through the blue hour, a sparrow answering the
+  silent bird, and a bright golden-hour reprise. The music ducks under the narration.
+- Art: `src/videos/clockmaker/art.ts` (the clockmaker, the brass songbird with a wind-up key,
+  the live sparrow, the painted clock faces). Set and staging: `world.ts`; cameras and light
+  curve: `story.ts`.
+- Render: `python3 src/videos/clockmaker/soundtrack.py public/clockmaker/mix.wav`, then
+  `npm run render -- --id ClockmakerBird --output work/bird/final.mp4 --scale 0.75 --dpr 0.6 --concurrency 1`,
+  then mux `public/clockmaker/mix.wav` over the picture (AAC 128k, faststart).
+- Deliverable: `deliverables/clockmakers-bird.mp4` (41.0 s, 810 × 1440, 30 fps, −17.3 LUFS,
+  −1.9 dB peak, no unplanned pops, black or frozen frames). Poster:
+  `deliverables/clockmakers-bird-poster.jpg`; silent preview: `deliverables/clockmakers-bird-preview.gif`.
+
+The light is part of the story: afternoon inside the workshop, dusk and a blue hour at the open
+window, a warm sunrise on the sill, then a golden-hour wide shot of the town. `duskAt`,
+`nightAt`, `dawnAt` and `goldenAt` in `story.ts` drive the sky, the window view, the room's lamp
+and the exposure, so every change lands on a cut.
+
+## The Kite Thief (previous short)
 
 `KiteShort` is the third original short: 13 seconds, four shots. A red paper kite slips
 its string in a cobbled square, rides the wind over the rooftops, and dives back into a
@@ -78,8 +105,8 @@ whistled score with foley.
   −17.7 LUFS, −3.8 dB peak, no silence or black frames, 3.5 MB web encode).
 - Stills: `deliverables/kite-thief-poster.jpg` and `deliverables/kite-thief-dusk.jpg`.
 
-Like the earlier tests this is a wordless look test: no narration and no researched story
-pipeline, rendered at 810 × 1440 rather than the skill's 1440 × 2560 final size.
+This one is wordless: no narration, rendered at 810 × 1440 rather than the skill's
+1440 × 2560 final size.
 
 ## Common commands
 

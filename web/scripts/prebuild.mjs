@@ -11,6 +11,8 @@ const dst = path.join(webRoot, "public", "media");
 const src = path.resolve(webRoot, "..", "deliverables");
 
 const map = [
+  ["clockmakers-bird.mp4", "clockmakers-bird.mp4"],
+  ["clockmakers-bird-poster.jpg", "clockmakers-bird-poster.jpg"],
   ["kite-thief.mp4", "kite-thief.mp4"],
   ["kite-thief-poster.jpg", "kite-thief-poster.jpg"],
   ["animated-test-v2-web.mp4", "unexpected-landing.mp4"],

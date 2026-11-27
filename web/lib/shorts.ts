@@ -18,6 +18,19 @@ export type Short = {
 
 export const SHORTS: Short[] = [
   {
+    id: "clockmakers-bird",
+    title: "The Clockmaker's Bird",
+    chyron: "Short · 02",
+    blurb:
+      "In a town where every clock keeps perfect time, one old clockmaker builds a brass bird that cannot sing. At dawn, with the window left open, something small and brown answers it.",
+    file: "clockmakers-bird.mp4",
+    poster: "clockmakers-bird-poster.jpg",
+    seconds: 41,
+    width: 1080,
+    height: 1920,
+    tags: ["Narrated", "Dawn", "Original score"],
+  },
+  {
     id: "kite-thief",
     title: "The Kite Thief",
     chyron: "Short · 01",
